@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: syuilo and other misskey contributors
+ * SPDX-FileCopyrightText: syuilo and misskey-project
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
@@ -96,6 +96,11 @@ export class NodeinfoServerService {
 				metadata: {
 					nodeName: meta.name,
 					nodeDescription: meta.description,
+					nodeAdmins: [{
+						name: meta.maintainerName,
+						email: meta.maintainerEmail,
+					}],
+					// deprecated
 					maintainer: {
 						name: meta.maintainerName,
 						email: meta.maintainerEmail,
