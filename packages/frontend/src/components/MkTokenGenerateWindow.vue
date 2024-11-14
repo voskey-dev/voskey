@@ -35,7 +35,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			<div class="_gaps_s">
 				<MkSwitch v-for="kind in Object.keys(permissionSwitches)" :key="kind" v-model="permissionSwitches[kind]">{{ i18n.ts._permissions[kind] }}</MkSwitch>
 			</div>
-			<div v-if="iAmAdmin" :class="$style.adminPermissions">
+			<div v-if="iAmModerator" :class="$style.adminPermissions">
 				<div :class="$style.adminPermissionsHeader"><b>{{ i18n.ts.adminPermission }}</b></div>
 				<div class="_gaps_s">
 					<MkSwitch v-for="kind in Object.keys(permissionSwitchesForAdmin)" :key="kind" v-model="permissionSwitchesForAdmin[kind]">{{ i18n.ts._permissions[kind] }}</MkSwitch>
@@ -55,7 +55,7 @@ import MkButton from './MkButton.vue';
 import MkInfo from './MkInfo.vue';
 import MkModalWindow from '@/components/MkModalWindow.vue';
 import { i18n } from '@/i18n.js';
-import { iAmAdmin } from '@/account.js';
+import { iAmModerator } from '@/account.js';
 
 const props = withDefaults(defineProps<{
 	title?: string | null;
@@ -91,7 +91,7 @@ if (props.initialPermissions) {
 		permissionSwitches.value[kind] = false;
 	}
 
-	if (iAmAdmin) {
+	if (iAmModerator) {
 		for (const kind of adminPermissions) {
 			permissionSwitchesForAdmin.value[kind] = false;
 		}
@@ -103,7 +103,7 @@ function ok(): void {
 		name: name.value,
 		permissions: [
 			...Object.keys(permissionSwitches.value).filter(p => permissionSwitches.value[p]),
-			...(iAmAdmin ? Object.keys(permissionSwitchesForAdmin.value).filter(p => permissionSwitchesForAdmin.value[p]) : []),
+			...(iAmModerator ? Object.keys(permissionSwitchesForAdmin.value).filter(p => permissionSwitchesForAdmin.value[p]) : []),
 		],
 	});
 	dialog.value?.close();
@@ -113,7 +113,7 @@ function disableAll(): void {
 	for (const p in permissionSwitches.value) {
 		permissionSwitches.value[p] = false;
 	}
-	if (iAmAdmin) {
+	if (iAmModerator) {
 		for (const p in permissionSwitchesForAdmin.value) {
 			permissionSwitchesForAdmin.value[p] = false;
 		}
@@ -124,7 +124,7 @@ function enableAll(): void {
 	for (const p in permissionSwitches.value) {
 		permissionSwitches.value[p] = true;
 	}
-	if (iAmAdmin) {
+	if (iAmModerator) {
 		for (const p in permissionSwitchesForAdmin.value) {
 			permissionSwitchesForAdmin.value[p] = true;
 		}
