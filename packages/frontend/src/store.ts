@@ -126,7 +126,7 @@ export const defaultStore = markRaw(new Storage('base', {
 	},
 	reactions: {
 		where: 'account',
-		default: ['👍', '❤️', '⭐', '🤔', '😩', '㊗️', '🍮' , ':iihanashi:','🈂️',':kandou:', ':voskey_icon:' , ':takahashi_fankit:'],
+		default: ['👍', '❤️', '⭐', '🤔', '😩', '㊗️', '🍮', ':iihanashi:', '🈂️', ':kandou:', ':voskey_icon:', ':takahashi_fankit:'],
 	},
 	pinnedEmojis: {
 		where: 'account',
