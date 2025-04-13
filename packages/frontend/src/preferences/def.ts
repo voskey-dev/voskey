@@ -78,7 +78,7 @@ export const PREF_DEF = {
 		default: [{
 			id: 'a',
 			name: '',
-			emojis: ['👍', '❤️', '😆', '🤔', '😮', '🎉', '💢', '😥', '😇', '🍮'],
+			emojis: ['👍', '❤️', '⭐', '🤔', '😩', '㊗️', '🍮' , ':iihanashi:','🈂️',':kandou:', ':voskey_icon:' , ':takahashi_fankit:'],
 		}] as {
 			id: string;
 			name: string;
