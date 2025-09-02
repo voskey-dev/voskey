@@ -100,9 +100,11 @@ function blockUser() {
 		os.apiWithDialog('blocking/create', { userId: props.user.id }).then(refreshUserInfo);
 	});
 }
+
 function muteUser() {
 	os.apiWithDialog('mute/create', { userId: props.user.id }).then(refreshUserInfo);
 }
+
 function refreshUserInfo() {
 	misskeyApi('users/show', { userId: props.user.id })
 	.then((res) => {
