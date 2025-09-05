@@ -19,14 +19,16 @@ SPDX-License-Identifier: AGPL-3.0-only
 				<template #label>{{ i18n.ts.abuseReportCategory }}</template>
 				<template v-if="category" #caption><Mfm :text="i18n.ts._abuseReportCategory[`${category}_description`]"/></template>
 				<option value="" selected disabled>{{ i18n.ts.selectCategory }}</option>
-				<option value="nsfw">{{ i18n.ts._abuseReportCategory.nsfw }}</option>
+				<option value="sensitive">{{ i18n.ts._abuseReportCategory.sensitive }}</option>
+				<option value="r18">{{ i18n.ts._abuseReportCategory.r18 }}</option>
 				<option value="spam">{{ i18n.ts._abuseReportCategory.spam }}</option>
 				<option value="explicit">{{ i18n.ts._abuseReportCategory.explicit }}</option>
+				<option value="defamation">{{ i18n.ts._abuseReportCategory.defamation }}</option>
 				<option value="phishing">{{ i18n.ts._abuseReportCategory.phishing }}</option>
 				<option value="personalInfoLeak">{{ i18n.ts._abuseReportCategory.personalInfoLeak }}</option>
 				<option value="selfHarm">{{ i18n.ts._abuseReportCategory.selfHarm }}</option>
-				<option value="criticalBreach">{{ i18n.ts._abuseReportCategory.criticalBreach }}</option>
-				<option value="otherBreach">{{ i18n.ts._abuseReportCategory.otherBreach }}</option>
+				<option value="selfModeration">{{ i18n.ts._abuseReportCategory.selfModeration }}</option>
+				<option value="jasracNextone">{{ i18n.ts._abuseReportCategory.jasracNextone }}</option>
 				<option value="violationRights">{{ i18n.ts._abuseReportCategory.violationRights }}</option>
 				<option value="violationRightsOther">{{ i18n.ts._abuseReportCategory.violationRightsOther }}</option>
 				<option value="notLike">{{ i18n.ts._abuseReportCategory.notLike }}</option>

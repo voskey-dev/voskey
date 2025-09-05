@@ -10771,21 +10771,29 @@ export interface Locale extends ILocale {
             "deleteConfirm": string;
         };
     };
-    "_abuseReportMsgs": {
-        /**
-         * 申し訳ございません。権利侵害の通報は権利者ご本人からのみ受け付けております。
-         */
-        "rightsAbuseCantAccept": string;
-    };
     "_abuseReportCategory": {
         /**
-         * NSFWガイドラインに反するセンシティブなコンテンツ
+         * 隔離不十分なセンシティブコンテンツ
          */
-        "nsfw": string;
+        "sensitive": string;
         /**
-         * NSFW(閲覧注意・センシティブ)フラグのないメディア投稿、CW(内容を隠す)で隠されていないテキスト投稿、実写の性器が写り込んでいるメディア等
+         * 隔離不十分なセンシティブノート、フラグが付与されていないセンシティブファイル
+         * 詳しくはvoskey-docsを参照
+         * https://voskeydocs.icalo.net/rules/important/00-word-definition/#%E3%82%BB%E3%83%B3%E3%82%B7%E3%83%86%E3%82%A3%E3%83%96
          */
-        "nsfw_description": string;
+        "sensitive_description": string;
+        /**
+         * R-18ファイル
+         */
+        "r18": string;
+        /**
+         * R-18要素を含む文章以外のファイル
+         * R-18要素:
+         * ・陰部及び性器の結・接合や性行為の描写
+         * ・人体や動物等の激しい損傷や拷問などの過激な暴力描写
+         * ・上記を強く想起させる刺激的な描写
+         */
+        "r18_description": string;
         /**
          * スパム
          */
@@ -10803,7 +10811,15 @@ export interface Locale extends ILocale {
          */
         "explicit_description": string;
         /**
-         * フィッシングもしくは詐欺行為
+         * 誹謗中傷
+         */
+        "defamation": string;
+        /**
+         * 根拠のない悪口や侮辱行為
+         */
+        "defamation_description": string;
+        /**
+         * 詐欺・フィッシング
          */
         "phishing": string;
         /**
@@ -10811,7 +10827,7 @@ export interface Locale extends ILocale {
          */
         "phishing_description": string;
         /**
-         * 本人もしくは他人の個人情報の漏えい
+         * 個人・機密情報の漏洩
          */
         "personalInfoLeak": string;
         /**
@@ -10827,21 +10843,21 @@ export interface Locale extends ILocale {
          */
         "selfHarm_description": string;
         /**
-         * 重大な規約違反
+         * 自主的なモデレーション
          */
-        "criticalBreach": string;
+        "selfModeration": string;
         /**
-         * 重大な影響を及ぼす規約違反行為
+         * 独自ルールの押し付け、権利者以外による親告罪の告発、ぼすきー規約順守に乗じた強硬な振る舞い
          */
-        "criticalBreach_description": string;
+        "selfModeration_description": string;
         /**
-         * その他の規約違反
+         * JASRAC・NexTone管理楽曲の投稿
          */
-        "otherBreach": string;
+        "jasracNextone": string;
         /**
-         * 明確に分類されないその他の規約違反行為
+         * Youtubeやニコニコ動画等と異なり、ぼすきーではこれらの団体との契約を交わしていないため登録楽曲の歌詞やメロディの使用が制限されます
          */
-        "otherBreach_description": string;
+        "jasracNextone_description": string;
         /**
          * 権利侵害やなりすまし（侵害を受けた権利者本人によるご申告）
          */
