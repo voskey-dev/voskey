@@ -21,7 +21,7 @@ import gradient from 'chartjs-plugin-gradient';
 import type { ChartDataset } from 'chart.js';
 import { misskeyApi } from '@/utility/misskey-api.js';
 import { store } from '@/store.js';
-import { useChartTooltip } from '@/use/use-chart-tooltip.js';
+import { useChartTooltip } from '@/composables/use-chart-tooltip.js';
 import { chartVLine } from '@/utility/chart-vline.js';
 import { initChart } from '@/utility/init-chart.js';
 import { chartLegend } from '@/utility/chart-legend.js';
@@ -36,13 +36,15 @@ const props = defineProps<{
 const chartEl = useTemplateRef('chartEl');
 const legendEl = useTemplateRef('legendEl');
 const now = new Date();
-let chartInstance: Chart = null;
+let chartInstance: Chart | null = null;
 const chartLimit = 50;
 const fetching = ref(true);
 
 const { handler: externalTooltipHandler } = useChartTooltip();
 
 async function renderChart() {
+	if (chartEl.value == null) return;
+
 	if (chartInstance) {
 		chartInstance.destroy();
 	}

@@ -95,7 +95,7 @@ import type { Size } from '@/components/grid/grid.js';
 import type { CellValue, GridCell } from '@/components/grid/cell.js';
 import type { GridRowSetting } from '@/components/grid/row.js';
 import { GridEventEmitter } from '@/components/grid/grid.js';
-import { useTooltip } from '@/use/use-tooltip.js';
+import { useTooltip } from '@/composables/use-tooltip.js';
 import * as os from '@/os.js';
 import { equalCellAddress, getCellAddress } from '@/components/grid/grid-utils.js';
 
@@ -300,7 +300,7 @@ useTooltip(rootEl, (showing) => {
 	const result = os.popup(defineAsyncComponent(() => import('@/components/grid/MkCellTooltip.vue')), {
 		showing,
 		content,
-		targetElement: rootEl.value!,
+		anchorElement: rootEl.value!,
 	}, {
 		closed: () => {
 			result.dispose();
