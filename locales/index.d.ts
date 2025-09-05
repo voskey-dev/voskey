@@ -2927,6 +2927,14 @@ export interface Locale extends ILocale {
      */
     "selectCategory": string;
     /**
+     * カテゴリを選択してください
+     */
+    "categoryRequired": string;
+    /**
+     * 詳細を入力して下さい
+     */
+    "descriptionRequired": string;
+    /**
      * 通報完了
      */
     "reportComplete": string;

@@ -42,6 +42,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 			</div>
 			<div class="">
 				<MkButton primary full :disabled="comment.length === 0 || category.length === 0" @click="send">{{ i18n.ts.send }}</MkButton>
+				<div v-if="category.length === 0" :class="$style.buttonCaption">{{ i18n.ts.categoryRequired }}</div>
+				<div v-if="comment.length === 0" :class="$style.buttonCaption">{{ i18n.ts.descriptionRequired }}</div>
 			</div>
 		</div>
 	</div>
@@ -129,5 +131,11 @@ async function send() {
 <style lang="scss" module>
 .root {
 	--root-margin: 16px;
+}
+
+.buttonCaption {
+	font-size: 0.85em;
+	padding: 8px 0 0 0;
+	color: var(--MI_THEME-warn);
 }
 </style>
