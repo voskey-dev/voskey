@@ -10867,7 +10867,7 @@ export interface Locale extends ILocale {
          */
         "jasracNextone_description": string;
         /**
-         * 権利侵害やなりすまし（侵害を受けた権利者本人によるご申告）
+         * 権利侵害やなりすまし（権利者本人によるご申告）
          */
         "violationRights": string;
         /**

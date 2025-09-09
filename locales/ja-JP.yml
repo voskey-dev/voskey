@@ -2876,7 +2876,7 @@ _abuseReportCategory:
   selfModeration_description: "独自ルールの押し付け、権利者以外による親告罪の告発、ぼすきー規約順守に乗じた強硬な振る舞い"
   jasracNextone: "JASRAC・NexTone管理楽曲の投稿"
   jasracNextone_description: "Youtubeやニコニコ動画等と異なり、ぼすきーではこれらの団体との契約を交わしていないため登録楽曲の歌詞やメロディの使用が制限されます"
-  violationRights: "権利侵害やなりすまし（侵害を受けた権利者本人によるご申告）"
+  violationRights: "権利侵害やなりすまし（権利者本人によるご申告）"
   violationRights_description: "権利者本人の著作権、商標権、またはその他の権利を侵害する投稿及びなりすまし行為"
   violationRightsOther: "権利侵害やなりすまし（第三者による通報）"
   violationRightsOther_description: "他人の著作権、商標権、またはその他の権利を侵害する投稿及びなりすまし行為\n第三者による通報の場合、法律で定められた非親告罪の範囲外のケースには対応できないことがあります"
