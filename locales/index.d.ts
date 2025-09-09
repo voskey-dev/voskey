@@ -2919,6 +2919,34 @@ export interface Locale extends ILocale {
      */
     "fillAbuseReportDescription": string;
     /**
+     * 通報の種類
+     */
+    "abuseReportCategory": string;
+    /**
+     * カテゴリを選択
+     */
+    "selectCategory": string;
+    /**
+     * カテゴリを選択してください
+     */
+    "categoryRequired": string;
+    /**
+     * 詳細を入力して下さい
+     */
+    "descriptionRequired": string;
+    /**
+     * 通報完了
+     */
+    "reportComplete": string;
+    /**
+     * このユーザーをブロックする
+     */
+    "blockThisUser": string;
+    /**
+     * このユーザーをミュートする
+     */
+    "muteThisUser": string;
+    /**
      * 内容が送信されました。ご報告ありがとうございました。
      */
     "abuseReported": string;
@@ -10750,6 +10778,127 @@ export interface Locale extends ILocale {
              */
             "deleteConfirm": string;
         };
+    };
+    "_abuseReportCategory": {
+        /**
+         * 隔離不十分なセンシティブコンテンツ
+         */
+        "sensitive": string;
+        /**
+         * 隔離不十分なセンシティブノート、フラグが付与されていないセンシティブファイル
+         * 詳しくはvoskey-docsを参照
+         * https://voskeydocs.icalo.net/rules/important/00-word-definition/#%E3%82%BB%E3%83%B3%E3%82%B7%E3%83%86%E3%82%A3%E3%83%96
+         */
+        "sensitive_description": string;
+        /**
+         * R-18ファイル
+         */
+        "r18": string;
+        /**
+         * R-18要素を含む文章以外のファイル
+         * R-18要素:
+         * ・陰部及び性器の結・接合や性行為の描写
+         * ・人体や動物等の激しい損傷や拷問などの過激な暴力描写
+         * ・上記を強く想起させる刺激的な描写
+         */
+        "r18_description": string;
+        /**
+         * スパム
+         */
+        "spam": string;
+        /**
+         * 不審なウェブサイト(一般的でない通販サイトやアダルトサイト等)の宣伝・誘導、短時間でリノート(再投稿)や投稿を繰り返し行いタイムラインを埋める行為等
+         */
+        "spam_description": string;
+        /**
+         * 暴力もしくは攻撃的な安全にかかわる行為
+         */
+        "explicit": string;
+        /**
+         * 攻撃的・脅迫・暴力など、悪意のある過激な投稿、他ユーザーの利用を妨げる行為等
+         */
+        "explicit_description": string;
+        /**
+         * 誹謗中傷
+         */
+        "defamation": string;
+        /**
+         * 根拠のない悪口や侮辱行為
+         */
+        "defamation_description": string;
+        /**
+         * 詐欺・フィッシング
+         */
+        "phishing": string;
+        /**
+         * 偽のウェブサイトやメッセージで個人情報を盗む試み、または金銭詐取の試み
+         */
+        "phishing_description": string;
+        /**
+         * 個人・機密情報の漏洩
+         */
+        "personalInfoLeak": string;
+        /**
+         * 住所、電話番号、メールアドレスなどの個人情報の無断公開
+         */
+        "personalInfoLeak_description": string;
+        /**
+         * 自殺もしくは自害など生命に関わる問題
+         */
+        "selfHarm": string;
+        /**
+         * 自傷行為、自殺を示唆する投稿、またはその他の生命に関わる危険行為
+         */
+        "selfHarm_description": string;
+        /**
+         * 自主的なモデレーション
+         */
+        "selfModeration": string;
+        /**
+         * 独自ルールの押し付け、権利者以外による親告罪の告発、ぼすきー規約順守に乗じた強硬な振る舞い
+         */
+        "selfModeration_description": string;
+        /**
+         * JASRAC・NexTone管理楽曲の投稿
+         */
+        "jasracNextone": string;
+        /**
+         * Youtubeやニコニコ動画等と異なり、ぼすきーではこれらの団体との契約を交わしていないため登録楽曲の歌詞やメロディの使用が制限されます
+         */
+        "jasracNextone_description": string;
+        /**
+         * 権利侵害やなりすまし（権利者本人によるご申告）
+         */
+        "violationRights": string;
+        /**
+         * 権利者本人の著作権、商標権、またはその他の権利を侵害する投稿及びなりすまし行為
+         */
+        "violationRights_description": string;
+        /**
+         * 権利侵害やなりすまし（第三者による通報）
+         */
+        "violationRightsOther": string;
+        /**
+         * 他人の著作権、商標権、またはその他の権利を侵害する投稿及びなりすまし行為
+         * 第三者による通報の場合、法律で定められた非親告罪の範囲外のケースには対応できないことがあります
+         */
+        "violationRightsOther_description": string;
+        /**
+         * この人が気に入らない
+         */
+        "notLike": string;
+        /**
+         * 個人的な理由で不快と感じるユーザーや投稿
+         */
+        "notLike_description": string;
+        /**
+         * その他
+         */
+        "other": string;
+        /**
+         * 上記のいずれにも該当しないその他の問題
+         */
+        "other_description": string;
     };
     "_moderationLogTypes": {
         /**
