@@ -1,6 +1,10 @@
 services:
   web:
-    build: .
+    build:
+      context: .
+      args:
+        UID_H: 991
+        GID_H: 991
     restart: always
     links:
       - db
