@@ -487,6 +487,10 @@ export interface Locale extends ILocale {
      */
     "cantReRenote": string;
     /**
+     * ホームでリノート
+     */
+    "homeRenote": string;
+    /**
      * 引用
      */
     "quote": string;

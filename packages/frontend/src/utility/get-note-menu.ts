@@ -634,6 +634,36 @@ export function getRenoteMenu(props: {
 					});
 				}
 			},
+		},{
+			text: i18n.ts.homeRenote,
+			icon: 'ti ti-repeat',
+			action: () => {
+				const el = props.renoteButton.value;
+				if (el && prefer.s.animation) {
+					const rect = el.getBoundingClientRect();
+					const x = rect.left + (el.offsetWidth / 2);
+					const y = rect.top + (el.offsetHeight / 2);
+					const { dispose } = os.popup(MkRippleEffect, { x, y }, {
+						end: () => dispose(),
+					});
+				}
+
+				const localOnly = prefer.s.rememberNoteVisibility ? store.s.localOnly : prefer.s.defaultNoteLocalOnly;
+
+				let visibility = appearNote.visibility;
+				visibility = smallerVisibility(visibility, 'home');
+
+				if (!props.mock) {
+					misskeyApi('notes/create', {
+						localOnly,
+						visibility,
+						renoteId: appearNote.id,
+					}).then((res) => {
+						os.toast(i18n.ts.renoted);
+						globalEvents.emit('notePosted', res.createdNote);
+					});
+				}
+			},
 		}, ...(props.mock ? [] : [{
 			text: i18n.ts.quote,
 			icon: 'ti ti-quote',
