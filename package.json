@@ -6,6 +6,10 @@
 		"type": "git",
 		"url": "https://github.com/misskey-dev/misskey.git"
 	},
+	"engines": {
+		"pnpm": "^10",
+		"node": "^22.15"
+	},
 	"packageManager": "pnpm@10.18.2",
 	"workspaces": [
 		"packages/frontend-shared",
