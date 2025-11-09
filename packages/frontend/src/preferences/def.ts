@@ -101,7 +101,7 @@ export const PREF_DEF = definePreferences({
 		default: () => [{
 			id: genId(),
 			name: '',
-			emojis: ['👍', '❤️', '⭐', '🤔', '😩', '㊗️', '🍮' , ':iihanashi:','🈂️',':kandou:', ':voskey_icon:' , ':takahashi_fankit:'],
+			emojis: ['👍', '❤️', '⭐', '🤔', '😩', '㊗️', '🍮', ':iihanashi:', '🈂️', ':kandou:', ':voskey_icon:', ':takahashi_fankit:'],
 		}] as {
 			id: string;
 			name: string;

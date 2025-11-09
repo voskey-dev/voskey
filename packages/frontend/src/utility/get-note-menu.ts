@@ -673,7 +673,7 @@ export function getRenoteMenu(props: {
 					});
 				}
 			},
-		},{
+		}, {
 			text: i18n.ts.homeRenote,
 			icon: 'ti ti-repeat',
 			action: () => {

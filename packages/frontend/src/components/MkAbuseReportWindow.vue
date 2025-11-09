@@ -79,7 +79,6 @@ const comment = ref(props.initialComment ?? '');
 const page = ref(1);
 const fullUserInfo = ref<Misskey.entities.UserDetailed | null>(null);
 
-
 const {
 	model: category,
 	def: categoryDef,
