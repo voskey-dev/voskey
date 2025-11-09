@@ -15,24 +15,9 @@ SPDX-License-Identifier: AGPL-3.0-only
 	</template>
 	<div class="_spacer" style="--MI_SPACER-min: 20px; --MI_SPACER-max: 28px;">
 		<div class="_gaps_m" :class="$style.root">
-			<MkSelect v-model="category" :required="true">
+			<MkSelect v-model="category" :items="categoryDef" :required="true">
 				<template #label>{{ i18n.ts.abuseReportCategory }}</template>
 				<template v-if="category" #caption><Mfm :text="i18n.ts._abuseReportCategory[`${category}_description`]"/></template>
-				<option value="" selected disabled>{{ i18n.ts.selectCategory }}</option>
-				<option value="sensitive">{{ i18n.ts._abuseReportCategory.sensitive }}</option>
-				<option value="r18">{{ i18n.ts._abuseReportCategory.r18 }}</option>
-				<option value="spam">{{ i18n.ts._abuseReportCategory.spam }}</option>
-				<option value="explicit">{{ i18n.ts._abuseReportCategory.explicit }}</option>
-				<option value="defamation">{{ i18n.ts._abuseReportCategory.defamation }}</option>
-				<option value="phishing">{{ i18n.ts._abuseReportCategory.phishing }}</option>
-				<option value="personalInfoLeak">{{ i18n.ts._abuseReportCategory.personalInfoLeak }}</option>
-				<option value="selfHarm">{{ i18n.ts._abuseReportCategory.selfHarm }}</option>
-				<option value="selfModeration">{{ i18n.ts._abuseReportCategory.selfModeration }}</option>
-				<option value="jasracNextone">{{ i18n.ts._abuseReportCategory.jasracNextone }}</option>
-				<option value="violationRights">{{ i18n.ts._abuseReportCategory.violationRights }}</option>
-				<option value="violationRightsOther">{{ i18n.ts._abuseReportCategory.violationRightsOther }}</option>
-				<option value="notLike">{{ i18n.ts._abuseReportCategory.notLike }}</option>
-				<option value="other">{{ i18n.ts._abuseReportCategory.other }}</option>
 			</MkSelect>
 			<div class="">
 				<MkTextarea v-model="comment">
@@ -77,6 +62,7 @@ import MkSelect from '@/components/MkSelect.vue';
 import * as os from '@/os.js';
 import { i18n } from '@/i18n.js';
 import { misskeyApi } from '@/utility/misskey-api.js';
+import { useMkSelect } from '@/composables/use-mkselect.js';
 
 const props = defineProps<{
 	user: Misskey.entities.UserLite;
@@ -90,9 +76,33 @@ const emit = defineEmits<{
 const uiWindow = useTemplateRef('uiWindow');
 const ui2Window = useTemplateRef('uiWindow2');
 const comment = ref(props.initialComment ?? '');
-const category = ref('');
 const page = ref(1);
 const fullUserInfo = ref<Misskey.entities.UserDetailed | null>(null);
+
+
+const {
+	model: category,
+	def: categoryDef,
+} = useMkSelect({
+	items: [
+		{ label: i18n.ts.selectCategory, value: "" },
+		{ label: i18n.ts._abuseReportCategory.sensitive, value: "sensitive" },
+		{ label: i18n.ts._abuseReportCategory.r18, value: "r18" },
+		{ label: i18n.ts._abuseReportCategory.spam, value: "spam" },
+		{ label: i18n.ts._abuseReportCategory.explicit, value: "explicit" },
+		{ label: i18n.ts._abuseReportCategory.defamation, value: "defamation" },
+		{ label: i18n.ts._abuseReportCategory.phishing, value: "phishing" },
+		{ label: i18n.ts._abuseReportCategory.personalInfoLeak, value: "personalInfoLeak" },
+		{ label: i18n.ts._abuseReportCategory.selfHarm, value: "selfHarm" },
+		{ label: i18n.ts._abuseReportCategory.selfModeration, value: "selfModeration" },
+		{ label: i18n.ts._abuseReportCategory.jasracNextone, value: "jasracNextone" },
+		{ label: i18n.ts._abuseReportCategory.violationRights, value: "violationRights" },
+		{ label: i18n.ts._abuseReportCategory.violationRightsOther, value: "violationRightsOther" },
+		{ label: i18n.ts._abuseReportCategory.notLike, value: "notLike" },
+		{ label: i18n.ts._abuseReportCategory.other, value: "other" },
+	],
+	initialValue: "",
+});
 
 function blockUser() {
 	os.confirm({
