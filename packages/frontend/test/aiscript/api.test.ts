@@ -8,6 +8,7 @@ import { aiScriptReadline, createAiScriptEnv } from '@/aiscript/api.js';
 import { errors, Interpreter, Parser, values } from '@syuilo/aiscript';
 import {
 	afterAll,
+	afterEach,
 	beforeAll,
 	beforeEach,
 	describe,
@@ -79,9 +80,8 @@ describe('AiScript common API', () => {
 	});
 
 	describe('readline', () => {
-		beforeEach(() => {
+		afterEach(() => {
 			vi.restoreAllMocks();
-			vi.clearAllMocks();
 		});
 
 		test.sequential('ok', async () => {
@@ -176,9 +176,8 @@ describe('AiScript common API', () => {
 	});
 
 	describe('dialog', () => {
-		beforeEach(() => {
+		afterEach(() => {
 			vi.restoreAllMocks();
-			vi.clearAllMocks();
 		});
 
 		test.sequential('ok', async () => {
@@ -216,9 +215,8 @@ describe('AiScript common API', () => {
 	});
 
 	describe('confirm', () => {
-		beforeEach(() => {
+		afterEach(() => {
 			vi.restoreAllMocks();
-			vi.clearAllMocks();
 		});
 
 		test.sequential('ok', async () => {
@@ -274,9 +272,8 @@ describe('AiScript common API', () => {
 	});
 
 	describe('api', () => {
-		beforeEach(() => {
+		afterEach(() => {
 			vi.restoreAllMocks();
-			vi.clearAllMocks();
 		});
 
 		test.sequential('successful', async () => {
@@ -350,7 +347,7 @@ describe('AiScript common API', () => {
 			miLocalStorage.removeItem('aiscript:widget:key');
 		});
 
-		beforeEach(() => {
+		afterEach(() => {
 			miLocalStorage.removeItem('aiscript:widget:key');
 		});
 

@@ -23,8 +23,6 @@
 		"emitDecoratorMetadata": true,
 		"resolveJsonModule": true,
 		"isolatedModules": true,
-		"jsx": "react-jsx",
-		"jsxImportSource": "@kitajs/html",
 		"baseUrl": "./",
 		"paths": {
 			"@/*": ["../src/*"]

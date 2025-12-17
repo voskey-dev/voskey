@@ -63,7 +63,7 @@ async function setChannel() {
 		items: channels.map(x => ({
 			value: x.id, label: x.name,
 		})),
-		default: channels.find(x => x.id === props.column.channelId)?.id,
+		default: props.column.channelId,
 	});
 	if (canceled || chosenChannelId == null) return;
 	const chosenChannel = channels.find(x => x.id === chosenChannelId)!;

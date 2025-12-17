@@ -15,7 +15,6 @@ import type { UsersRepository, NotesRepository, FollowingsRepository, PollsRepos
 import { bindThis } from '@/decorators.js';
 import { DebounceLoader } from '@/misc/loader.js';
 import { IdService } from '@/core/IdService.js';
-import { shouldHideNoteByTime } from '@/misc/should-hide-note-by-time.js';
 import { ReactionsBufferingService } from '@/core/ReactionsBufferingService.js';
 import type { OnModuleInit } from '@nestjs/common';
 import type { CustomEmojiService } from '../CustomEmojiService.js';
@@ -117,7 +116,12 @@ export class NoteEntityService implements OnModuleInit {
 	private treatVisibility(packedNote: Packed<'Note'>): Packed<'Note'>['visibility'] {
 		if (packedNote.visibility === 'public' || packedNote.visibility === 'home') {
 			const followersOnlyBefore = packedNote.user.makeNotesFollowersOnlyBefore;
-			if (shouldHideNoteByTime(followersOnlyBefore, packedNote.createdAt)) {
+			if ((followersOnlyBefore != null)
+				&& (
+					(followersOnlyBefore <= 0 && (Date.now() - new Date(packedNote.createdAt).getTime() > 0 - (followersOnlyBefore * 1000)))
+					|| (followersOnlyBefore > 0 && (new Date(packedNote.createdAt).getTime() < followersOnlyBefore * 1000))
+				)
+			) {
 				packedNote.visibility = 'followers';
 			}
 		}
@@ -137,7 +141,12 @@ export class NoteEntityService implements OnModuleInit {
 
 		if (!hide) {
 			const hiddenBefore = packedNote.user.makeNotesHiddenBefore;
-			if (shouldHideNoteByTime(hiddenBefore, packedNote.createdAt)) {
+			if ((hiddenBefore != null)
+				&& (
+					(hiddenBefore <= 0 && (Date.now() - new Date(packedNote.createdAt).getTime() > 0 - (hiddenBefore * 1000)))
+					|| (hiddenBefore > 0 && (new Date(packedNote.createdAt).getTime() < hiddenBefore * 1000))
+				)
+			) {
 				hide = true;
 			}
 		}

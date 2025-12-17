@@ -6,11 +6,11 @@
 import * as fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import * as yaml from 'js-yaml';
 import { type FastifyServerOptions } from 'fastify';
 import type * as Sentry from '@sentry/node';
 import type * as SentryVue from '@sentry/vue';
 import type { RedisOptions } from 'ioredis';
-import type { ManifestChunk } from 'vite';
 
 type RedisOptionsSource = Partial<RedisOptions> & {
 	host: string;
@@ -189,9 +189,9 @@ export type Config = {
 	authUrl: string;
 	driveUrl: string;
 	userAgent: string;
-	frontendEntry: ManifestChunk;
+	frontendEntry: { file: string | null };
 	frontendManifestExists: boolean;
-	frontendEmbedEntry: ManifestChunk;
+	frontendEmbedEntry: { file: string | null };
 	frontendEmbedManifestExists: boolean;
 	mediaProxy: string;
 	externalMediaProxyEnabled: boolean;
@@ -220,15 +220,21 @@ export type FulltextSearchProvider = 'sqlLike' | 'sqlPgroonga' | 'meilisearch';
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
 
-const compiledConfigFilePathForTest = resolve(_dirname, '../../../built/._config_.json');
+/**
+ * Path of configuration directory
+ */
+const dir = `${_dirname}/../../../.config`;
 
-export const compiledConfigFilePath = fs.existsSync(compiledConfigFilePathForTest) ? compiledConfigFilePathForTest : resolve(_dirname, '../../../built/.config.json');
+/**
+ * Path of configuration file
+ */
+export const path = process.env.MISSKEY_CONFIG_YML
+	? resolve(dir, process.env.MISSKEY_CONFIG_YML)
+	: process.env.NODE_ENV === 'test'
+		? resolve(dir, 'test.yml')
+		: resolve(dir, 'default.yml');
 
 export function loadConfig(): Config {
-	if (!fs.existsSync(compiledConfigFilePath)) {
-		throw new Error('Compiled configuration file not found. Try running \'pnpm compile-config\'.');
-	}
-
 	const meta = JSON.parse(fs.readFileSync(`${_dirname}/../../../built/meta.json`, 'utf-8'));
 
 	const frontendManifestExists = fs.existsSync(_dirname + '/../../../built/_frontend_vite_/manifest.json');
@@ -240,7 +246,7 @@ export function loadConfig(): Config {
 		JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_frontend_embed_vite_/manifest.json`, 'utf-8'))
 		: { 'src/boot.ts': { file: null } };
 
-	const config = JSON.parse(fs.readFileSync(compiledConfigFilePath, 'utf-8')) as Source;
+	const config = yaml.load(fs.readFileSync(path, 'utf-8')) as Source;
 
 	const url = tryCreateUrl(config.url ?? process.env.MISSKEY_URL ?? '');
 	const version = meta.version;
