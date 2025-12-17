@@ -16,6 +16,7 @@ import {
 	type PluginOption
 } from 'vite';
 import fs from 'node:fs';
+import { glob } from 'glob';
 import JSON5 from 'json5';
 import MagicString, { SourceMap } from 'magic-string';
 import path from 'node:path'
@@ -723,7 +724,7 @@ export function pluginCreateSearchIndexVirtualModule(options: Options, asigner: 
 
 		async load(id) {
 			if (id == '\0' + allSearchIndexFile) {
-				const files = options.targetFilePaths.map((filePathPattern) => fs.globSync(filePathPattern)).flat();
+				const files = await Promise.all(options.targetFilePaths.map(async (filePathPattern) => await glob(filePathPattern))).then(paths => paths.flat());
 				let generatedFile = '';
 				let arrayElements = '';
 				for (let file of files) {

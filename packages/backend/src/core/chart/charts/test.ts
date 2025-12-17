@@ -5,11 +5,10 @@
 
 import { Injectable, Inject } from '@nestjs/common';
 import { DataSource } from 'typeorm';
-import * as Redis from 'ioredis';
+import { AppLockService } from '@/core/AppLockService.js';
 import { DI } from '@/di-symbols.js';
 import Logger from '@/logger.js';
 import { bindThis } from '@/decorators.js';
-import { acquireChartInsertLock } from '@/misc/distributed-lock.js';
 import Chart from '../core.js';
 import { name, schema } from './entities/test.js';
 import type { KVs } from '../core.js';
@@ -25,12 +24,10 @@ export default class TestChart extends Chart<typeof schema> { // eslint-disable-
 		@Inject(DI.db)
 		private db: DataSource,
 
-		@Inject(DI.redis)
-		private redisClient: Redis.Redis,
-
+		private appLockService: AppLockService,
 		logger: Logger,
 	) {
-		super(db, (k) => acquireChartInsertLock(redisClient, k), logger, name, schema);
+		super(db, (k) => appLockService.getChartInsertLock(k), logger, name, schema);
 	}
 
 	protected async tickMajor(): Promise<Partial<KVs<typeof schema>>> {
