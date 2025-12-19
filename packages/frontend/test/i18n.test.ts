@@ -5,7 +5,7 @@
 
 import { describe, expect, it } from 'vitest';
 import { I18n } from '../../frontend-shared/js/i18n.js'; // @@で参照できなかったので
-import type { ParameterizedString } from 'i18n';
+import type { ParameterizedString } from '../../../locales/index.js';
 
 // TODO: このテストはfrontend-sharedに移動する
 

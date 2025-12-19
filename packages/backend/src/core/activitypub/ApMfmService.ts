@@ -5,7 +5,7 @@
 
 import { Injectable } from '@nestjs/common';
 import * as mfm from 'mfm-js';
-import { MfmService } from '@/core/MfmService.js';
+import { MfmService, Appender } from '@/core/MfmService.js';
 import type { MiNote } from '@/models/Note.js';
 import { bindThis } from '@/decorators.js';
 import { extractApHashtagObjects } from './models/tag.js';
@@ -25,17 +25,17 @@ export class ApMfmService {
 	}
 
 	@bindThis
-	public getNoteHtml(note: Pick<MiNote, 'text' | 'mentionedRemoteUsers'>, extraHtml: string | null = null) {
+	public getNoteHtml(note: Pick<MiNote, 'text' | 'mentionedRemoteUsers'>, additionalAppender: Appender[] = []) {
 		let noMisskeyContent = false;
 		const srcMfm = (note.text ?? '');
 
 		const parsed = mfm.parse(srcMfm);
 
-		if (extraHtml == null && parsed.every(n => ['text', 'unicodeEmoji', 'emojiCode', 'mention', 'hashtag', 'url'].includes(n.type))) {
+		if (!additionalAppender.length && parsed.every(n => ['text', 'unicodeEmoji', 'emojiCode', 'mention', 'hashtag', 'url'].includes(n.type))) {
 			noMisskeyContent = true;
 		}
 
-		const content = this.mfmService.toHtml(parsed, JSON.parse(note.mentionedRemoteUsers), extraHtml);
+		const content = this.mfmService.toHtml(parsed, JSON.parse(note.mentionedRemoteUsers), additionalAppender);
 
 		return {
 			content,

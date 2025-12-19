@@ -205,7 +205,7 @@ module.exports = {
 	// Whether to use watchman for file crawling
 	// watchman: true,
 
-	extensionsToTreatAsEsm: ['.ts', '.tsx'],
+	extensionsToTreatAsEsm: ['.ts'],
 
 	testTimeout: 60000,
 

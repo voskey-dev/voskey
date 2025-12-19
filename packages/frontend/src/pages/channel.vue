@@ -257,7 +257,7 @@ async function search() {
 }
 
 const headerActions = computed(() => {
-	if (channel.value) {
+	if (channel.value && channel.value.userId) {
 		const headerItems: PageHeaderItem[] = [];
 
 		headerItems.push({
