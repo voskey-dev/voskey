@@ -1,13 +1,13 @@
 ---
 name: update-voskey
-description: Update the voskey repository by checking the latest GitHub release from misskey-dev/misskey, merging that release commit into the local main branch, resolving conflicts with preference for local voskey changes, updating the root package.json version to the Misskey release version plus -voskey, and building a Docker image tagged as icalo35/voskey-app with the release-based version. Use when Codex is asked to sync voskey with upstream Misskey releases or prepare a release image after upstream updates.
+description: Update the voskey repository by checking the latest GitHub release from misskey-dev/misskey, merging that release commit into the local main branch, resolving conflicts with preference for local voskey changes, updating the root package.json version to the Misskey release version plus -voskey, and documenting how container publishing should run from GitHub Actions on pushes to main. Use when Codex is asked to sync voskey with upstream Misskey releases or prepare the repository for release automation after upstream updates.
 ---
 
 # Update Voskey
 
 ## Overview
 
-Follow this workflow to update this repository against the latest upstream Misskey release and produce a versioned Docker image.
+Follow this workflow to update this repository against the latest upstream Misskey release and keep the repository aligned with GitHub Actions based container publishing.
 
 Work from the repository root on the local `main` branch unless the user explicitly asks for a different branch.
 
@@ -53,7 +53,7 @@ git fetch upstream --tags
 git merge <release-commit>
 ```
 
-If Git reports no changes because the release commit is already contained, continue with version and image checks only if the user still wants a rebuild.
+If Git reports no changes because the release commit is already contained, continue with version checks only if the user still wants the repository state refreshed.
 
 ### 4. Resolve conflicts with voskey precedence
 
@@ -93,21 +93,38 @@ Example:
 
 Only the root [`package.json`](/home/uboar/repo/voskey/package.json) needs this version change unless the user asks for broader version alignment.
 
-### 6. Build the Docker image with the version tag
+### 6. Document GitHub Actions based container publishing
 
-Build from the repository root using the same version string used in `package.json`.
+Do not treat local `docker build` as part of the default update workflow.
+
+When the user wants container publishing, explain that it should be handled by a GitHub Actions workflow triggered by pushes to `main`, then published to Docker Hub. Keep the explanation concrete:
+
+- Create or update a workflow under [`.github/workflows/docker.yml`](/home/uboar/repo/voskey/.github/workflows/docker.yml).
+- Change the trigger to:
 
 ```bash
-docker build -t icalo35/voskey-app:<misskey-version>-voskey .
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 ```
 
-Example:
+- Set `env.REGISTRY_IMAGE` to the target Docker Hub repository such as `icalo35/voskey-app`.
+- Log in with `docker/login-action` using repository secrets, typically `DOCKER_USERNAME` and `DOCKER_PASSWORD` or a Docker Hub access token.
+- Use `docker/setup-buildx-action` and `docker/build-push-action` for multi-platform builds if needed.
+- Generate tags from the repository state. The simplest stable option for pushes to `main` is to publish `latest` and optionally a commit SHA tag. If the repository version in [`package.json`](/home/uboar/repo/voskey/package.json) should also be published as a tag, add an explicit metadata step or read the version before build.
+- Push from Actions, not from the local workstation.
 
-```bash
-docker build -t icalo35/voskey-app:2025.12.1-voskey .
-```
+If the user asks for implementation details, direct them to this sequence:
 
-If the user asks for multi-platform or push steps, treat that as an extension to this workflow rather than part of the default process.
+1. Add Docker Hub credentials as GitHub Actions secrets.
+2. Update the Docker workflow trigger from `release` to `push` on `main`.
+3. Change the image name from the upstream default to `icalo35/voskey-app`.
+4. Ensure the tagging strategy matches voskey expectations, for example `latest`, `<package.json version>`, and `sha-<short_commit>`.
+5. Push a commit to `main` and confirm the workflow publishes successfully.
+
+Existing upstream-style workflows such as [`.github/workflows/docker.yml`](/home/uboar/repo/voskey/.github/workflows/docker.yml) and [`.github/workflows/docker-develop.yml`](/home/uboar/repo/voskey/.github/workflows/docker-develop.yml) are useful references, but adapt their repository filters, triggers, and image names for voskey.
 
 ## Final Checks
 
@@ -115,5 +132,4 @@ Before finishing, verify:
 
 - `git status` shows only intended changes.
 - The root [`package.json`](/home/uboar/repo/voskey/package.json) version matches the upstream release plus `-voskey`.
-- The Docker image tag matches that same version string.
-- Report the upstream release tag, merged commit, conflict files if any, and the final Docker tag to the user.
+- Report the upstream release tag, merged commit, conflict files if any, and any GitHub Actions or Docker Hub setup the user still needs to complete.

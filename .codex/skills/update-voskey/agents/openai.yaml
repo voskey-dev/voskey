@@ -1,4 +1,4 @@
 interface:
   display_name: "Update Voskey"
-  short_description: "voskeyをMisskey最新リリースへ追従してDocker更新"
-  default_prompt: "Use $update-voskey to merge the latest Misskey release into this voskey checkout, update the version string, and build the tagged Docker image."
+  short_description: "voskeyをMisskey最新リリースへ追従し、公開手順をActions運用に揃える"
+  default_prompt: "Use $update-voskey to merge the latest Misskey release into this voskey checkout, update the version string, and explain how container publishing should run from GitHub Actions on pushes to main."

@@ -1,19 +1,17 @@
 name: Publish Docker image
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 env:
-  REGISTRY_IMAGE: misskey/misskey
+  REGISTRY_IMAGE: icalo35/voskey-app
   TAGS: |
-    type=edge
-    type=ref,event=pr
     type=ref,event=branch
-    type=semver,pattern={{version}}
-    type=semver,pattern={{major}}.{{minor}}
-    type=semver,pattern={{major}}
+    type=sha,prefix=sha-
+    type=raw,value=latest,enable={{is_default_branch}}
 
 jobs:
   # see https://docs.docker.com/build/ci/github-actions/multi-platform/#distribute-build-across-multiple-runners
