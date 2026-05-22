@@ -126,9 +126,12 @@ function refreshUserInfo() {
 }
 
 async function send() {
+	if (category.value === '') return;
+	const categoryValue = category.value;
+
 	await os.apiWithDialog('users/report-abuse', {
 		userId: props.user.id,
-		comment: `category: ${i18n.ts._abuseReportCategory[category.value]}\n\n${comment.value}`,
+		comment: `category: ${i18n.ts._abuseReportCategory[categoryValue]}\n\n${comment.value}`,
 	}, undefined);
 	const res = await misskeyApi('users/show', { userId: props.user.id });
 	fullUserInfo.value = res;
