@@ -310,7 +310,7 @@ export const PREF_DEF = definePreferences({
 		default: true,
 	},
 	forceShowAds: {
-		default: false,
+		default: true,
 	},
 	aiChanMode: {
 		default: false,
@@ -329,9 +329,6 @@ export const PREF_DEF = definePreferences({
 	},
 	notificationStackAxis: {
 		default: 'horizontal' as 'vertical' | 'horizontal',
-	},
-	enableCondensedLine: {
-		default: true,
 	},
 	keepScreenOn: {
 		default: false,
