@@ -42,7 +42,7 @@ export const port = config.port;
 export const origin = config.url;
 export const host = new URL(config.url).host;
 
-export const WEBHOOK_HOST = 'http://localhost:15080';
+export const WEBHOOK_HOST = 'http://127.0.0.1:15080';
 export const WEBHOOK_PORT = 15080;
 
 export type ApiRequest<E extends keyof misskey.Endpoints, P extends misskey.Endpoints[E]['req'] = misskey.Endpoints[E]['req']> = {
@@ -666,7 +666,7 @@ export async function captureWebhook<T = SystemWebhookPayload>(postAction: () =>
 			resolve(body);
 		});
 
-		await fastify.listen({ port });
+		await fastify.listen({ port, host: '127.0.0.1' });
 
 		timeoutHandle = setTimeout(async () => {
 			await fastify.close();
